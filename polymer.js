@@ -1,3 +1,6 @@
+
+(function () { var Polymer; (function noconflict () {
+
 /**
  * @license
  * Copyright (c) 2014 The Polymer Project Authors. All rights reserved.
@@ -3817,6 +3820,8 @@ Polymer = {
   version: '0.5.5'
 };
 
+}.call(window)); window.Polymer = Polymer; (function noconflict () {
+
 // TODO(sorvell): this ensures Polymer is an object and not a function
 // Platform is currently defining it as a function to allow for async loading
 // of polymer; once we refine the loading process this likely goes away.
@@ -3824,6 +3829,7 @@ if (typeof window.Polymer === 'function') {
   Polymer = {};
 }
 
+}.call(window)); window.Polymer = Polymer; (function noconflict () {
 
 (function(scope) {
 
@@ -11777,6 +11783,8 @@ scope.import = _import;
 scope.importElements = importElements;
 
 })(Polymer);
+
+}.call(window)); }("noconflict"));
 
 /**
  * The `auto-binding` element extends the template element. It provides a quick 
