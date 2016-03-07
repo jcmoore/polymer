@@ -1,0 +1,8 @@
+{
+  "name": "Polymer",
+  "version": "0.5.6-noconflict",
+  "scripts": {
+    "bower": "bower",
+    "grunt": "grunt"
+  }
+}
