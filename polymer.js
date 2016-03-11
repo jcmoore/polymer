@@ -10347,7 +10347,7 @@ scope.styleResolver = styleResolver;
 
   // make window.Polymer reference `element()`
 
-  window.Polymer = element;
+  window.Polymer = Polymer = element; // noconflict // window.Polymer = element;
 
   // TODO(sjmiles): find a way to do this that is less terrible
   // copy window.Polymer properties onto `element()`
