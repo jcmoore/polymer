@@ -11784,8 +11784,6 @@ scope.importElements = importElements;
 
 })(Polymer);
 
-}.call(window)); }("noconflict"));
-
 /**
  * The `auto-binding` element extends the template element. It provides a quick 
  * and easy way to do data binding without the need to setup a model. 
@@ -11862,3 +11860,6 @@ scope.importElements = importElements;
   });
 
 })();
+
+}.call(window)); }("noconflict"));
+
