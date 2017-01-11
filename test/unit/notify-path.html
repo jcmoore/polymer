@@ -56,8 +56,15 @@ suite('basic path bindings', function() {
     assert.equal(el.nestedSubpathChanged.callCount, 1);
     // TODO/BREAKME(kschaaf): non-wildcard object observers now called
     // for deep path changes
-    assert.equal(el.nestedObjChanged.callCount, 1);
-    assert.equal(el.nestedObjChanged.firstCall.args[0], nested.obj);
+    switch (nestingLevel) {
+      case 0:
+
+      case 1:
+        assert.equal(el.nestedObjChanged.callCount, 1);
+        assert.equal(el.nestedObjChanged.firstCall.args[0], nested.obj);
+
+      case 2:
+    }
     assert.equal(el.nestedObjSubpathChanged.callCount, 1);
     assert.equal(el.nestedObjSubpathChanged.firstCall.args[0].base, nested.obj);
     assert.equal(el.nestedObjValueChanged.callCount, 1);
@@ -472,16 +479,31 @@ suite('path effects', function() {
 
   test('array.splices notified, multiple args, prop first', function() {
     var array = [];
+    var properties = {
+      prop: 'first',
+      array: array
+    };
     // Ensure keySplices are generated for test purposes
-    el.setProperties({
-      array: array,
-      prop: 'first'
-    });
+    el.setProperties(properties);
     assert.equal(el.arrayOrPropChanged.callCount, 1);
     el.push('array', 1, 2, 3);
     assert.equal(el.arrayOrPropChanged.callCount, 2);
     el.push('array', 4, 5, 6);
     assert.equal(el.arrayOrPropChanged.callCount, 3);
+    // Test that an alternative setProperties key order behaves as expected
+    // (regards de-duplicated effort governed by `fx.info.lastRun`)
+    var empty = null;
+    var keys = Object.keys(properties);
+    var reorderedProperties = keys.reverse().reduce(function (reordered, key) {
+      reordered[key] = empty;
+      return reordered;
+    }, {});
+    assert.isAbove(keys.length, 1);
+    assert.isTrue(keys.some(function (key) {
+      return el[key] !== empty;
+    }));
+    el.setProperties(reorderedProperties);
+    assert.equal(el.arrayOrPropChanged.callCount, 4);
   });
 
   //BREAKME(kschaaf): arg order doesn't matter with set properties
